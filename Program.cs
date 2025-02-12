@@ -429,6 +429,7 @@ public class Program
                 OutText(sw, bar.Head);
             }
         }
+
         if (nextPct != bar.Pct)
         {
             OutEsc(sw, 4 + bar.Width + "G");
