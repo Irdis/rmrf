@@ -57,6 +57,9 @@ public class Program
         "ﾆｬﾝ(^ｰ^ ) ",
         "ﾆｬﾝ(^ｰ^*) ",
         "み (>ω<*) ",
+        "み (>ω<*) ",
+        "ﾆｬﾝ(^ｰ^ ) ",
+        "ﾆｬﾝ(^ｰ^ ) ",
     ];
 
     public static void Main(string[] args)
@@ -110,7 +113,7 @@ public class Program
             {
                 var time = Directory.GetDirectories(path).Length + 
                     Directory.GetFiles(path).Length;
-                Thread.Sleep(time / 4);
+                Thread.Sleep(time / 10);
                 return true;
             }
             foreach (var dir in Directory.GetDirectories(path))
