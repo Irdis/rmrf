@@ -36,6 +36,9 @@ public class Program
         Exception e = null;
         using var sw = CreateStream();
         var bar = CreateBar();
+        Console.CancelKeyPress += delegate {
+            Recover(sw);
+        };
 
         DrawInitial(sw, bar);
         var deleted = 0;
@@ -240,6 +243,11 @@ public class Program
         OutEsc(sw, "?25h");
     }
 
+    public static void Recover(StreamWriter sw)
+    {
+        OutEsc(sw, "0m");
+        OutEsc(sw, "?25h");
+    }
 
     public static void MoveDelta(StreamWriter sw, Bar bar, int nextInd, int nextPct)
     {
@@ -283,7 +291,8 @@ public class Program
 
     public static void OutEsc(StreamWriter sw, string str)
     {
-        sw.Write("\x1b[" + str);
+        sw.Write("\x1b[");
+        sw.Write(str);
     }
 
     public static void OutText(StreamWriter sw, string str)
