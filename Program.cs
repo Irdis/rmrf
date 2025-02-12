@@ -3,13 +3,15 @@
     public int Width { get; set; }
     public int Ind { get; set; }
     public int Pct { get; set; }
-    public string Beg { get; } = "[";
-    public string Filler { get; } = "=";
-    public string Space { get; } = ".";
-    public string Head { get; } = ">";
-    public string Fin { get; } = "]"; 
-
+    public string Beg { get; } = "\uee00";
+    public string BegFilled { get; } = "\uee03";
+    public string Filler { get; } = "\uee04";
+    public string Space { get; } = "\uee01";
+    public string Head { get; } = "\uee01";
+    public string Fin { get; } = "\uee02"; 
+    public string FinFilled { get; } = "\uee05"; 
 }
+
 public class RmrfArgs 
 {
     public bool NoAnimation { get; set; }
@@ -22,6 +24,7 @@ public class Program
 {
     public static void Main(string[] args)
     {
+        Console.OutputEncoding = System.Text.Encoding.UTF8;
         if(!TryParse(args, out var rmrfArgs))
         {
             return;
@@ -246,6 +249,11 @@ public class Program
 
         if (nextInd != bar.Ind)
         {
+            if (bar.Ind == 0)
+            {
+                OutEsc(sw, 1 + "G");
+                OutText(sw, bar.BegFilled);
+            }
             OutEsc(sw, 2 + bar.Ind + "G");
 
             for (int i = bar.Ind; i < nextInd; i++)
@@ -255,6 +263,7 @@ public class Program
             if (nextInd == bar.Width - 1)
             {
                 OutText(sw, bar.Filler);
+                OutText(sw, bar.FinFilled);
             } 
             else 
             {
