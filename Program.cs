@@ -173,7 +173,9 @@ public class Program
             bar.Head = AsciiTheme.Head;
             bar.Fin = AsciiTheme.Fin; 
             bar.FinFilled = AsciiTheme.FinFilled; 
-        } else {
+        } 
+        else 
+        {
             bar.Beg = UnicodeTheme.Beg;
             bar.BegFilled = UnicodeTheme.BegFilled;
             bar.Filler = UnicodeTheme.Filler;
