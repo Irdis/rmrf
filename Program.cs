@@ -368,8 +368,12 @@ public class Program
         if (success)
         {
             OutText(sw, "Over");
-        } else {
-            OutText(sw, "Failed");
+            return;
+        }
+
+        OutText(sw, "Failed");
+        if (e != null)
+        {
             OutText(sw, "\r\n");
             OutText(sw, e.ToString());
         }
