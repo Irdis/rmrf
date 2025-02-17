@@ -43,7 +43,7 @@ public class RmrfArgs
     public bool NoAnimation { get; set; }
     public bool DryRun { get; set; }
     public bool Ascii { get; set; }
-    public bool Cat { get; set; }
+    public bool Cat { get; set; } = true;
     public string Path { get; set; }
     public string[] Include { get; set; }
     public string[] Exclude { get; set; }
@@ -286,24 +286,21 @@ public class Program
                 ind++;
                 res.NoAnimation = true;
             } 
-            else if (args[ind] == "-cat") 
+            else if (args[ind] == "-na") 
             {
                 ind++;
-                res.Cat = true;
+                res.NoAnimation = true;
+            } 
+            else if (args[ind] == "-?") 
+            {
+                PrintUsage();
+                return false;
             } 
             else 
             {
                 Console.WriteLine("Invalid argument list");
                 Console.WriteLine();
-                Console.WriteLine("rmrf [args]");
-                Console.WriteLine("args list:");
-                Console.WriteLine("    -p <folder1>:                path");
-                Console.WriteLine("    -i <folder1,folder2,...>:    directories to delete");
-                Console.WriteLine("    -e <folder1,folder2,...>:    exclude paths");
-                Console.WriteLine("    -na:                         no animation");
-                Console.WriteLine("    -dry:                        dry run");
-                Console.WriteLine("    -ascii:                      ascii theme");
-                Console.WriteLine("    -cat:                        add a cat");
+                PrintUsage();
                 return false;
             }
         }
@@ -312,6 +309,19 @@ public class Program
             res.Cat = false;
         }
         return true;
+    }
+
+    private static void PrintUsage()
+    {
+        Console.WriteLine("rmrf [args]");
+        Console.WriteLine("args list:");
+        Console.WriteLine("    -p <folder1>:                path");
+        Console.WriteLine("    -i <folder1,folder2,...>:    directories to delete");
+        Console.WriteLine("    -e <folder1,folder2,...>:    exclude paths");
+        Console.WriteLine("    -na:                         no animation");
+        Console.WriteLine("    -dry:                        dry run");
+        Console.WriteLine("    -ascii:                      ascii theme");
+        Console.WriteLine("    -?:                          show this message");
     }
 
     private static void DrawInitial(StreamWriter sw, Bar bar, RmrfArgs args)
