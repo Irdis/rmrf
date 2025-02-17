@@ -293,14 +293,15 @@ public class Program
             } 
             else if (args[ind] == "-?") 
             {
-                PrintUsage();
+                PrintUsage(Console.Out);
                 return false;
             } 
             else 
             {
-                Console.WriteLine("Invalid argument list");
-                Console.WriteLine();
-                PrintUsage();
+                var tw = Console.Error;
+                tw.WriteLine("Invalid argument list");
+                tw.WriteLine();
+                PrintUsage(tw);
                 return false;
             }
         }
@@ -311,17 +312,17 @@ public class Program
         return true;
     }
 
-    private static void PrintUsage()
+    private static void PrintUsage(TextWriter tw)
     {
-        Console.WriteLine("rmrf [args]");
-        Console.WriteLine("args list:");
-        Console.WriteLine("    -p <folder1>:                path");
-        Console.WriteLine("    -i <folder1,folder2,...>:    directories to delete");
-        Console.WriteLine("    -e <folder1,folder2,...>:    exclude paths");
-        Console.WriteLine("    -na:                         no animation");
-        Console.WriteLine("    -dry:                        dry run");
-        Console.WriteLine("    -ascii:                      ascii theme");
-        Console.WriteLine("    -?:                          show this message");
+        tw.WriteLine("rmrf [args]");
+        tw.WriteLine("args list:");
+        tw.WriteLine("    -p <folder1>:                path");
+        tw.WriteLine("    -i <folder1,folder2,...>:    directories to delete");
+        tw.WriteLine("    -e <folder1,folder2,...>:    exclude paths");
+        tw.WriteLine("    -na:                         no animation");
+        tw.WriteLine("    -dry:                        dry run");
+        tw.WriteLine("    -ascii:                      ascii theme");
+        tw.WriteLine("    -?:                          show this message");
     }
 
     private static void DrawInitial(StreamWriter sw, Bar bar, RmrfArgs args)
