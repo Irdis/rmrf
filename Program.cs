@@ -122,7 +122,7 @@ public class Program
             }
             foreach (var file in Directory.GetFiles(path))
             {
-                File.Delete(file);
+                FileDelete(file);
             }
             if (path != Directory.GetCurrentDirectory())
             {
@@ -136,6 +136,28 @@ public class Program
         }
 
         return true;
+    }
+
+    private static void FileDelete(string path)
+    {
+        try
+        {
+            File.Delete(path);
+        }
+        catch (UnauthorizedAccessException)
+        {
+            FileAttributes attributes = File.GetAttributes(path);
+            if ((attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
+            {
+                attributes &= ~FileAttributes.ReadOnly;
+                File.SetAttributes(path, attributes);
+                File.Delete(path);
+            }
+            else
+            {
+                throw;
+            }
+        }
     }
     
     private static (int, int) CountProgress(Bar bar, int current, int total)
